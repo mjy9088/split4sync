@@ -1,4 +1,4 @@
 PROJECT ( split4sync )
 ADD_EXECUTABLE( s4s main.c )
-INSTALL ( TARGETS s4s
-          RUNTIME_DESTINATION /usr/local/bin )
+SET ( CMAKE_INSTALL_PREFIX /usr/local )
+INSTALL ( TARGETS s4s RUNTIME_DESTINATION bin )
