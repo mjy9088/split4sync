@@ -20,7 +20,7 @@ int main(int argc, char **argv)
 			fprintf(stderr, "Failed to open file : %s\n", argv[2]);
 			return -1;
 		}
-		while(fscanf("%[^\n]", buffer) == 1)
+		while(fscanf(fp, "%[^\n]", buffer) == 1)
 		{
 			if(ferror(fp))
 			{
