@@ -64,7 +64,6 @@ int main(int argc, char **argv)
 		if(ferror(fp))
 		{
 			fclose(fp);
-			fclose(f);
 			fputs("Error reading file list", stderr);
 			return -7;
 		}
