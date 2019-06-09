@@ -11,6 +11,7 @@ int main(int argc, char **argv)
 	}
 	char filename[1024];
 	char buffer[1024];
+	char *tmp;
 	int read;
 	if(argc == 3)
 	{
@@ -20,13 +21,21 @@ int main(int argc, char **argv)
 			fprintf(stderr, "Failed to open file : %s\n", argv[2]);
 			return -1;
 		}
-		while(fscanf(fp, "%[^\n]", buffer) == 1)
+		while(fgets(filename, 1024, fp))
 		{
 			if(ferror(fp))
 			{
 				fclose(fp);
 				fputs("Error reading file list", stderr);
 				return -2;
+			}
+			for(tmp = filename; *tmp; tmp++)
+			{
+				if(*tmp == '\n')
+				{
+					*tmp = '\0';
+					break;
+				}
 			}
 			FILE *f = fopen(filename, "rb");
 			if(!f)
