@@ -72,7 +72,91 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		fputs("WIP", stderr);
+		if(strlen(argv[3]) > 15)
+		{
+			fprintf(stderr, "File size is too long : %s\n", argv[3]);
+			return 2;
+		}
+		uint64_t filesize = 0;
+		char *tmp;
+		for(tmp = argv[3]; *tmp; tmp++)
+		{
+			if(*tmp < '0' || *tmp > '9')
+			{
+				fprintf(stderr, "File size %s is not valid number\n", argv[3]);
+				return 3;
+			}
+			filesize = filesize * 10 + *tmp - '0';
+		}
+		char filename[1024];
+		char buffer[1024];
+		uint64_t remain = filesize;
+		int file_seq = 0, read;
+		FILE *fp = fopen(argv[2], "w");
+		if(!fp)
+		{
+			fprintf(stderr, "Failed to open file : %s\n", argv[2]);
+			return -8;
+		}
+		sprintf(filename, "%s.%d", argv[2], file_seq);
+		fputs(filename, fp);
+		if(ferror(fp))
+		{
+			fclose(fp);
+			fputs("Error writing file list", stderr);
+			return -9;
+		}
+		FILE *f = fopen(filename, "wb");
+		if(!f)
+		{
+			fprintf(stderr, "Failed to open file : %s\n", filename);
+			return -10;
+		}
+		while(!feof(stdin))
+		{
+			read = fread(buffer, sizeof(char), remain < 1024 ? remain : 1024, stdin);
+			if(ferror(stdin))
+			{
+				fclose(fp);
+				fclose(f);
+				fputs("Error reading stdin", stderr);
+				return -11;
+			}
+			if(fwrite(buffer, sizeof(char), read, f) != read || ferror(f))
+			{
+				fclose(fp);
+				fclose(f);
+				fputs("Error writing file", stderr);
+				return -12;
+			}
+			remain -= read;
+			if(!remain)
+			{
+				fclose(f);
+				sprintf(filename, "%s.%d", argv[2], ++file_seq);
+				fputs(filename, fp);
+				if(ferror(fp))
+				{
+					fclose(fp);
+					fputs("Error writing file list", stderr);
+					return -9;
+				}
+				f = fopen(filename, "wb");
+				if(!f)
+				{
+					fprintf(stderr, "Failed to open file : %s\n", filename);
+					return -10;
+				}
+				remain = filesize;
+			}
+		}
+		fclose(fp);
+		fclose(f);
+		if(ferror(stdin))
+		{
+			fputs("Error reading stdin", stderr);
+			return -13;
+		}
 		return 0;
 	}
 }
