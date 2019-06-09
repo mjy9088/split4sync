@@ -99,7 +99,7 @@ int main(int argc, char **argv)
 			return -8;
 		}
 		sprintf(filename, "%s.%d", argv[2], file_seq);
-		fputs(filename, fp);
+		fprintf(fp, "%s", filename);
 		if(ferror(fp))
 		{
 			fclose(fp);
@@ -134,7 +134,7 @@ int main(int argc, char **argv)
 			{
 				fclose(f);
 				sprintf(filename, "%s.%d", argv[2], ++file_seq);
-				fputs(filename, fp);
+				fprintf(fp, "%s", filename);
 				if(ferror(fp))
 				{
 					fclose(fp);
