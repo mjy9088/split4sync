@@ -13,12 +13,19 @@ mkdir split4sync_build
 cd split4sync_build
 cmake ../split4sync
 make
-make install
+sudo make install
 ```
 
 
 
 ## Usage
+
+```
+usage :
+        s4s join filename - join spllitted files into stdout
+        s4s split filename size - split stdin to multiple files
+
+```
 
 ### split
 
@@ -31,4 +38,12 @@ make_some_large_output | gzip | s4s split 1048576 test
 ```bash
 s4s join test | gzip -d > original_large_output_file
 ```
+
+
+
+## Known Issues
+
+If size of stdin is exact multiple of specified filesize, it will create useless empty file.
+
+~~Source code is unreadable~~
 
