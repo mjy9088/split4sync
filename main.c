@@ -134,7 +134,7 @@ int main(int argc, char **argv)
 			{
 				fclose(f);
 				sprintf(filename, "%s.%d", argv[2], ++file_seq);
-				fprintf(fp, "%s", filename);
+				fprintf(fp, "\n%s", filename);
 				if(ferror(fp))
 				{
 					fclose(fp);
