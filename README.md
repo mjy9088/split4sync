@@ -9,8 +9,10 @@ I hope it's useless. (I made it because I don't know how to join splitted files 
 
 ```bash
 git clone https://github.com/mjy9088/split4sync.git
-mkdir split4sync_build
-cd split4sync_build
+cd split4sync
+git checkout v1.0
+mkdir ../split4sync_build
+cd ../split4sync_build
 cmake ../split4sync
 make
 sudo make install
