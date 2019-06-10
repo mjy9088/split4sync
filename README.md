@@ -24,7 +24,6 @@ sudo make install
 usage :
         s4s join filename - join spllitted files into stdout
         s4s split filename size - split stdin to multiple files
-
 ```
 
 ### split
