@@ -41,10 +41,3 @@ s4s join test | gzip -d > original_large_output_file
 ```
 
 
-
-## Known Issues
-
-If size of stdin is exact multiple of specified filesize, it will create useless empty file.
-
-~~Source code is unreadable~~
-
