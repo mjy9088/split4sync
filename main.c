@@ -123,22 +123,6 @@ int main(int argc, char **argv)
 		}
 		while(!feof(stdin))
 		{
-			read = fread(buffer, sizeof(char), remain < 1024 ? remain : 1024, stdin);
-			if(ferror(stdin))
-			{
-				fclose(fp);
-				fclose(f);
-				fputs("Error reading stdin", stderr);
-				return -11;
-			}
-			if(fwrite(buffer, sizeof(char), read, f) != read || ferror(f))
-			{
-				fclose(fp);
-				fclose(f);
-				fputs("Error writing file", stderr);
-				return -12;
-			}
-			remain -= read;
 			if(!remain)
 			{
 				fclose(f);
@@ -158,6 +142,22 @@ int main(int argc, char **argv)
 				}
 				remain = filesize;
 			}
+			read = fread(buffer, sizeof(char), remain < 1024 ? remain : 1024, stdin);
+			if(ferror(stdin))
+			{
+				fclose(fp);
+				fclose(f);
+				fputs("Error reading stdin", stderr);
+				return -11;
+			}
+			if(fwrite(buffer, sizeof(char), read, f) != read || ferror(f))
+			{
+				fclose(fp);
+				fclose(f);
+				fputs("Error writing file", stderr);
+				return -12;
+			}
+			remain -= read;
 		}
 		fclose(fp);
 		fclose(f);
