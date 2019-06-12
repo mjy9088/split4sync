@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 	int read;
 	if(argc == 2)
 	{
-		printf("usage :\n\t\n\t%s help - this%s join filename - join spllitted files into stdout\n\t%s split filename size - split stdin to multiple files\n", argv[0], argv[0], argv[0]);
+		printf("usage :\n\t%s help - this\n\t%s join filename - join spllitted files into stdout\n\t%s split filename size - split stdin to multiple files\n", argv[0], argv[0], argv[0]);
 		return 0;
 	}
 	else if(argc == 3)
