@@ -4,16 +4,21 @@
 
 int main(int argc, char **argv)
 {
-	if((argc != 4 || strcmp(argv[1], "split")) && (argc != 3 || strcmp(argv[1], "join")))
+	if((argc != 4 || strcmp(argv[1], "split")) && (argc != 3 || strcmp(argv[1], "join")) && (argc != 2 || strcmp(argv[1], "help")))
 	{
-		printf("usage :\n\t%s join filename - join spllitted files into stdout\n\t%s split filename size - split stdin to multiple files\n", argv[0], argv[0]);
+		printf("See '%s help'\n", argv[0]);
 		return 1;
 	}
 	char filename[1024];
 	char buffer[1024];
 	char *tmp;
 	int read;
-	if(argc == 3)
+	if(argc == 2)
+	{
+		printf("usage :\n\t\n\t%s help - this%s join filename - join spllitted files into stdout\n\t%s split filename size - split stdin to multiple files\n", argv[0], argv[0], argv[0]);
+		return 0;
+	}
+	else if(argc == 3)
 	{
 		FILE *fp = fopen(argv[2], "r");
 		if(!fp)
