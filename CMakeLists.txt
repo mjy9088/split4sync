@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.7)
+
 PROJECT ( split4sync )
 ADD_EXECUTABLE( s4s main.c )
 SET ( CMAKE_INSTALL_PREFIX /usr/local )
@@ -8,5 +10,5 @@ find_package(Python COMPONENTS Interpreter)
 if(Python_Interpreter_FOUND)
     add_test(NAME test1 COMMAND Python::Interpreter test/test.py WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 else()
-    message("Python3 not found. no tests")
+    message("Python not found. no tests")
 endif()
