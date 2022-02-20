@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 	char filename[1024];
 	char buffer[1024];
 	char *tmp;
-	int read;
+	size_t read;
 	if(argc == 2)
 	{
 		printf("usage :"
@@ -109,14 +109,14 @@ int main(int argc, char **argv)
 		char filename[1024];
 		char buffer[1024];
 		uint64_t remain = filesize;
-		int file_seq = 0, read;
+		size_t file_seq = 0, read;
 		FILE *fp = fopen(argv[2], "w");
 		if(!fp)
 		{
 			fprintf(stderr, "Failed to open file : %s\n", argv[2]);
 			return -8;
 		}
-		sprintf(filename, "%s.%d", argv[2], file_seq);
+		sprintf(filename, "%s.%zu", argv[2], file_seq);
 		fprintf(fp, "%s", filename);
 		if(ferror(fp))
 		{
@@ -135,7 +135,7 @@ int main(int argc, char **argv)
 			if(!remain)
 			{
 				fclose(f);
-				sprintf(filename, "%s.%d", argv[2], ++file_seq);
+				sprintf(filename, "%s.%zu", argv[2], ++file_seq);
 				fprintf(fp, "\n%s", filename);
 				if(ferror(fp))
 				{
