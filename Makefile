@@ -21,7 +21,7 @@ test: $(TARGET)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p -- $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@ -MD $(LDFLAGS)
+	@$(CC) $(CFLAGS) -c $< -o $@ -MMD $(LDFLAGS)
 
 $(TARGET): $(OBJECTS)
 	@mkdir -p -- $(dir $@)
