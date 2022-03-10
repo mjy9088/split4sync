@@ -1,4 +1,4 @@
-clang := clang
+CC := clang
 CFLAGS := -O3
 # CFLAGS += -Weverything -Wno-poison-system-directories -Werror -pedantic
 CFLAGS += -Weverything -Werror -pedantic
