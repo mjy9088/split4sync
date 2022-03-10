@@ -9,10 +9,6 @@ int main(int argc, char **argv)
 		printf("See '%s help'\n", argv[0]);
 		return 1;
 	}
-	char filename[1024];
-	char buffer[1024];
-	char *tmp;
-	size_t read;
 	if(argc == 2)
 	{
 		printf("usage :"
@@ -24,6 +20,10 @@ int main(int argc, char **argv)
 	}
 	else if(argc == 3)
 	{
+		char filename[1024];
+		char buffer[1024];
+		char *tmp;
+		size_t read;
 		FILE *fp = fopen(argv[2], "r");
 		if(!fp)
 		{
@@ -104,7 +104,7 @@ int main(int argc, char **argv)
 				fprintf(stderr, "File size %s is not valid number\n", argv[3]);
 				return 3;
 			}
-			filesize = filesize * 10 + *tmp - '0';
+			filesize = filesize * 10 + (unsigned)(*tmp - '0');
 		}
 		char filename[1024];
 		char buffer[1024];

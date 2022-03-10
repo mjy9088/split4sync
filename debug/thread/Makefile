@@ -1,9 +1,10 @@
 clang := clang
-CFLAGS := -O3
+CFLAGS := -g3
 # CFLAGS += -Weverything -Wno-poison-system-directories -Werror -pedantic
 CFLAGS += -Weverything -Werror -pedantic
-LDFLAGS :=
-SRC_DIR = .
+CFLAGS += -fsanitize=thread
+LDFLAGS := -fsanitize=thread
+SRC_DIR = ../..
 OBJ_DIR = build
 TARGET = s4s
 SRCS = $(notdir $(wildcard $(SRC_DIR)/*.c))
@@ -18,10 +19,7 @@ fclean: clean
 	@rm -f $(TARGET)
 re: fclean all
 test: $(TARGET)
-	@sh test/script.sh
-	@sh -c "cd debug/address && make re test"
-	@sh -c "cd debug/thread && make re test"
-	@sh -c "cd debug/undefined && make re test"
+	@sh ../../test/script.sh
 .PHONY: all clean fclean re test
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
