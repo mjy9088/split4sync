@@ -1,7 +1,6 @@
 CC := clang
 CFLAGS := -g3
-# CFLAGS += -Weverything -Wno-poison-system-directories -Werror -pedantic
-CFLAGS += -Weverything -Werror -pedantic
+CFLAGS += -Weverything -Wno-poison-system-directories -Werror -pedantic
 CFLAGS += -fsanitize=undefined,float-divide-by-zero,unsigned-integer-overflow,implicit-conversion,local-bounds,nullability
 LDFLAGS := -fsanitize=undefined,float-divide-by-zero,unsigned-integer-overflow,implicit-conversion,local-bounds,nullability
 SRC_DIR = ../..

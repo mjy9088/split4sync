@@ -1,7 +1,6 @@
 CC := clang
 CFLAGS := -g3
-# CFLAGS += -Weverything -Wno-poison-system-directories -Werror -pedantic
-CFLAGS += -Weverything -Werror -pedantic
+CFLAGS += -Weverything -Wno-poison-system-directories -Werror -pedantic
 CFLAGS += -fsanitize=thread
 LDFLAGS := -fsanitize=thread
 SRC_DIR = ../..

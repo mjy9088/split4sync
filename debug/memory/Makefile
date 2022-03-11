@@ -1,8 +1,8 @@
 CC := clang
 CFLAGS := -g3
 CFLAGS += -Weverything -Wno-poison-system-directories -Werror -pedantic
-CFLAGS += -fsanitize=address
-LDFLAGS := -fsanitize=address
+CFLAGS += -fsanitize=memory
+LDFLAGS := -fsanitize=memory
 SRC_DIR = ../..
 OBJ_DIR = build
 TARGET = s4s

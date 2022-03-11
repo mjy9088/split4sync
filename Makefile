@@ -1,7 +1,6 @@
 CC := clang
 CFLAGS := -O3
-# CFLAGS += -Weverything -Wno-poison-system-directories -Werror -pedantic
-CFLAGS += -Weverything -Werror -pedantic
+CFLAGS += -Weverything -Wno-poison-system-directories -Werror -pedantic
 LDFLAGS :=
 SRC_DIR = .
 OBJ_DIR = build
@@ -20,6 +19,7 @@ re: fclean all
 test: $(TARGET)
 	@sh test/script.sh
 	@sh -c "cd debug/address && make re test"
+	@sh -c "cd debug/memory && make re test"
 	@sh -c "cd debug/thread && make re test"
 	@sh -c "cd debug/undefined && make re test"
 .PHONY: all clean fclean re test
