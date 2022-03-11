@@ -1,4 +1,6 @@
-CC := clang
+include ../../variables.mk
+-include ../../variables.local.mk
+
 CFLAGS := -g3
 CFLAGS += -Weverything -Wno-poison-system-directories -Werror -pedantic
 CFLAGS += -fsanitize=thread

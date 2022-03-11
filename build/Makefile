@@ -1,13 +1,11 @@
-include ../../variables.mk
--include ../../variables.local.mk
+include ../variables.mk
+-include ../variables.local.mk
 
-CFLAGS := -g3
+CFLAGS := -O3
 CFLAGS += -Weverything -Wno-poison-system-directories -Werror -pedantic
-CFLAGS += -fsanitize=undefined,float-divide-by-zero,unsigned-integer-overflow,implicit-conversion,local-bounds,nullability
-LDFLAGS := -fsanitize=undefined,float-divide-by-zero,unsigned-integer-overflow,implicit-conversion,local-bounds,nullability
-SRC_DIR = ../..
-OBJ_DIR = build
-TARGET = s4s
+LDFLAGS :=
+SRC_DIR = ..
+OBJ_DIR = .
 SRCS = $(notdir $(wildcard $(SRC_DIR)/*.c))
 OBJS = $(SRCS:.c=.o)
 OBJECTS = $(patsubst %.o,$(OBJ_DIR)/%.o,$(OBJS))
@@ -17,17 +15,22 @@ all: $(TARGET)
 clean:
 	@rm -f $(OBJ_DIR)/*.o $(OBJ_DIR)/*.d
 fclean: clean
-	@rm -f $(TARGET)
+	@rm -f $(SRC_DIR)/$(TARGET)
 re: fclean all
 test: $(TARGET)
-	@sh ../../test/script.sh
-.PHONY: all clean fclean re test
+	@sh ../test/script.sh
+	@sh -c "cd ../debug/address && make re test"
+	@sh -c "cd ../debug/memory && make re test"
+	@sh -c "cd ../debug/thread && make re test"
+	@sh -c "cd ../debug/undefined && make re test"
+$(TARGET): $(SRC_DIR)/$(TARGET)
+.PHONY: all clean fclean re test $(TARGET)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p -- $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@ -MMD $(LDFLAGS)
 
-$(TARGET): $(OBJECTS)
+$(SRC_DIR)/$(TARGET): $(OBJECTS)
 	@mkdir -p -- $(dir $@)
 	@$(CC) $(CFLAGS) $(OBJECTS) -o $(TARGET) $(LDFLAGS)
 
