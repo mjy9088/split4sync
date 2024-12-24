@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 		char buffer[1024];
 		char *tmp;
 		size_t read;
-		FILE *fp = fopen(argv[2], "r");
+		FILE *fp = fopen(argv[2], "rb");
 		if(!fp)
 		{
 			fprintf(stderr, "Failed to open file : %s\n", argv[2]);
